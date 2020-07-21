@@ -48,7 +48,7 @@ justify-content: flex-end;
     span{
       background:#fff;
       color:#FF7811;
-      padding: 5px 8px;
+      padding: 4px 8px;
       border-radius: 50%;
       position: relative;
       top: -20px;

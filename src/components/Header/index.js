@@ -17,7 +17,6 @@ function Header() {
           <a href="#">SINCRONIZAR CELULAR</a>
           <span className="divider"/>
           <a href="#" id="notification"> 
-          <span className="divider"/>
           <img src={bell} alt="Notificação"/>
           <span>5</span>
            </a>
