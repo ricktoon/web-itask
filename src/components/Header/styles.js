@@ -28,7 +28,13 @@ display:flex;
 align-items: center;
 justify-content: flex-end;
 
-  a{
+  button{
+      background: none;
+      border:none;
+      cursor: pointer;
+      outline-style: none;
+    }
+  a,button{
     color:#fff;
     font-weight:bold;
     text-decoration: none;
@@ -37,9 +43,7 @@ justify-content: flex-end;
     &:hover{
       color:#FF7811;
     }
-  }  
-
-  #notification{
+ 
     img{
       width: 25px;
       height: 30px;
@@ -58,7 +62,7 @@ justify-content: flex-end;
     &:hover{
       opacity:0.5;
     }
-  }
+  } 
 
   .divider::after{
     content:"|";

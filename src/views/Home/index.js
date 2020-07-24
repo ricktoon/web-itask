@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import * as S from './styles';
 
@@ -13,6 +14,7 @@ function Home() {
 
   const [filterActived, setFilterActived] = useState('all');
   const [tasks, setTasks] = useState([]);
+  const [lateCount, setLateCount] = useState();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function loadTasks(){
@@ -22,13 +24,26 @@ function Home() {
     })
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function lateVerify(){
+    await api.get(`/task/filter/late/00:11:22:33:44:55`)
+    .then(response => {
+    setLateCount(response.data.length)
+    })
+  }
+
+    function Notification(){
+      setFilterActived('late');
+    }
+
   useEffect(()=>{
     loadTasks();
-  },[filterActived, loadTasks])
+    lateVerify();
+  },[filterActived])
 
   return (
   <S.Container>
-  <Header/>
+  <Header lateCount={lateCount} clickNotification={Notification}/>
       <S.FilterArea>
           <button type="button" onClick={()=> setFilterActived("all")}>
           <FilterCard title="Todos" actived={filterActived === 'all'} />
@@ -48,7 +63,7 @@ function Home() {
          
        </S.FilterArea>
        <S.Title>
-            <h3>TAREFAS</h3>
+            <h3>{filterActived === 'late' ? 'TAREFAS ATRASADAS' : 'TAREFAS' }</h3>
           </S.Title>
 
           <S.Content>

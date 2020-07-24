@@ -16,11 +16,12 @@ const typeIcons = [
   iconSport,
   iconFood,
   iconWork,
-  iconStudy,
   iconPeople,
+  iconStudy,
   iconShopping,
-  iconGym,
-  iconAirplane
+  iconAirplane,
+  iconGym
+  
 ];
 
 export default typeIcons;

@@ -18,6 +18,7 @@ margin-bottom: -15px;
   button{
     background: none;
     border: none;
+    outline-style: none;
   }
 
 `
