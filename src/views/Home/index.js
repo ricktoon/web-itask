@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import * as S from './styles';
 
 import api from '../../services/api';
+import isConnected from '../../utils/isConnected';
 
 //Components
 import Header from '../../components/Header';
@@ -15,23 +16,19 @@ function Home() {
 
   const [filterActived, setFilterActived] = useState('all');
   const [tasks, setTasks] = useState([]);
-  const [lateCount, setLateCount] = useState();
+  const [redirect, setRedirect] = useState(false);
+
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function loadTasks(){
-    await api.get(`/task/filter/${filterActived}/00:11:22:33:44:55`)
+    await api.get(`/task/filter/${filterActived}/${isConnected}`)
     .then(response => {
     setTasks(response.data)
     })
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function lateVerify(){
-    await api.get(`/task/filter/late/00:11:22:33:44:55`)
-    .then(response => {
-    setLateCount(response.data.length)
-    })
-  }
+  
 
     function Notification(){
       setFilterActived('late');
@@ -39,12 +36,16 @@ function Home() {
 
   useEffect(()=>{
     loadTasks();
-    lateVerify();
+
+    if(!isConnected)
+      setRedirect(true);
+   
   },[filterActived])
 
   return (
   <S.Container>
-  <Header lateCount={lateCount} clickNotification={Notification}/>
+  {redirect && <Redirect to="/qrcode"/>}
+  <Header  clickNotification={Notification}/>
       <S.FilterArea>
           <button type="button" onClick={()=> setFilterActived("all")}>
           <FilterCard title="Todos" actived={filterActived === 'all'} />

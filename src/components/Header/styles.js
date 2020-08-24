@@ -70,4 +70,8 @@ justify-content: flex-end;
     color: #fff;
   }
 
+  button{
+    font-size: 16px;
+  }
+
 `
